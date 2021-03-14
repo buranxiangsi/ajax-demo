@@ -35,18 +35,24 @@ getJS.onclick = () => {
 
 getCSS.onclick = () => {
     const request = new XMLHttpRequest()
-    request.open('GET', '/style.css')
+    request.onreadystatechange = () => {
+        //下载完成，但不知道是成功2xx还是失败4xx 5xx
+        if (request.readyState === 4) {
+            if (request.status >= 200 && request.status < 300) {
+                //获取/创建/插入css,
+                const style = document.createElement('style')
+                style.innerHTML = request.response
+                document.head.appendChild(style)
 
-    request.onload = () => {
-        //获取/创建/插入css,
-        const style = document.createElement('style')
-        style.innerHTML = request.response
-        document.head.appendChild(style)
+            } else {
+                alert('加载css失败')
+            }
+        }
     }
     request.onerror = () => {
         console.log('失败了')
     }
-
-    request.send()
+    request.open('GET', '/style.css') //readyState = 1
+    request.send()//readyState = 2
 
 }
