@@ -20,7 +20,9 @@ function ajax(options) {
         let context = request.response
         options.success(context)
       }
-    };
+    }else{
+      console.log('加载失败')
+    }
   }
 
   request.send();
