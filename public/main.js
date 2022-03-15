@@ -43,13 +43,16 @@ getPage.onclick =()=>{
 }
 
 getJSON.onclick = () => {
-  ajax({
-    method: 'GET',
-    path: '/5.json',
-    success: (data) => {
-      myName.textContent = data.name
-    },
-  });
+  let path = "/5.json"
+  fetch(path)
+.then(response=>response.json())
+  // ajax({
+  //   method: 'GET',
+  //   path: '/5.json',
+  //   success: (data) => {
+  //     myName.textContent = data.name
+  //   },
+  // });
   
 };
 getXML.onclick = () => {
@@ -63,17 +66,25 @@ getXML.onclick = () => {
   });
 };
 getHTML.onclick = () => {
-  ajax({
-    method: 'GET',
-    path: '/3.html',
-    success: (data) => {
-     const div = document.createElement('div');
-     div.innerHTML = data;
-     document.body.appendChild(div);
-    },
-  });
+  let path = "/3.html"
+ fetch(path).then(async (response)=>{
+    const div = document.createElement('div');
+    div.innerHTML = await response.text()
+    document.body.appendChild(div);
+  })
+   
+  // ajax({
+  //   method: 'GET',
+  //   path: '/3.html',
+  //   success: (data) => {
+  //    const div = document.createElement('div');
+  //    div.innerHTML = data;
+  //    document.body.appendChild(div);
+  //   },
+  // });
 };
 getJS.onclick =()=>{
+  
   ajax({
     method: 'GET',
     path: '/main2.js',
